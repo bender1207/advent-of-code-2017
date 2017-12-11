@@ -25,9 +25,8 @@ object Day11_2
   def countDistance(line: String) : Int =
   {
     val steps = line.split(",").map(_.trim)
-    val hexSteps = steps.map(getHexStep)
 
-    hexSteps.foldLeft((0, Hex(0, 0)))((pair, step) => {
+    steps.map(getHexStep).foldLeft((0, Hex(0, 0)))((pair, step) => {
       val accHex = pair._2 + step
       (math.max(pair._1, accHex.distance), accHex)
     })._1
