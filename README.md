@@ -3,7 +3,7 @@
 This repository contains solutions to the [Advent of Code 2017](http://adventofcode.com/2017) 
 advent calendar.
 
-The solutions for Day 1-7 are in C/C++ and the rest are in Scala.
+The solutions for Day 1-7 are written in C/C++ and the rest are written in Scala.
 
 ## Warning
 
