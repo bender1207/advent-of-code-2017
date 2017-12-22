@@ -32,8 +32,7 @@ object Day20_1
 
   def computeClosestParticleOverTime(lines: Seq[String]) : Int = {
     val particles = lines.map(parseParticle).toIndexedSeq
-    val i = particles.indexOf(particles.minBy(p => p.a.lengthManhattan()))
-    val minAcceleration = particles(i).a.lengthManhattan()
+    val minAcceleration = particles.minBy(p => p.a.lengthManhattan()).a.lengthManhattan()
     val minAccelerationParticles = particles.filter(_.a.lengthManhattan() == minAcceleration)
     val maxDistance = minAccelerationParticles.maxBy(_.p.lengthManhattan()).p.lengthManhattan()
     val index = simulate(minAccelerationParticles, 0, maxDistance)
