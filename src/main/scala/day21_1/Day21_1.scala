@@ -74,10 +74,7 @@ object Day21_1
     Grid(result)
   }
 
-  def parseGrid(line: String) : Grid =
-  {
-    Grid(line.filter(_ != '/').map(_ == '#'))
-  }
+  def parseGrid(line: String) : Grid = Grid(line.filter(_ != '/').map(_ == '#'))
 
   def countActivatedPixels(lines: Seq[String], iterations: Int) : Int =
   {
