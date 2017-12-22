@@ -35,38 +35,33 @@ object Day22_2
   def countInfections(lines: Seq[String], bursts: Int) : Int =
   {
     var infected = Set[Pos]()
-    var clean = Set[Pos]()
 
     lines.zipWithIndex.foreach( { case (line, y) => line.zipWithIndex.foreach( {
-      case (c, x) => {
-        if (c == '#')
-          infected = infected + Pos(x, y)
-        else
-          clean = clean + Pos(x, y)
-      }})})
+      case (c, x) => { if (c == '#') infected = infected + Pos(x, y) }
+    })})
 
     val startPos = Pos(lines.head.length / 2, lines.length / 2)
     val startDir = Up()
 
-    simulate(startPos, startDir, infected, clean, Set(), Set(), 0, bursts, 0)
+    simulate(startPos, startDir, infected, Set(), Set(), 0, bursts, 0)
   }
 
-  def simulate(pos: Pos, dir: Dir, infected: Set[Pos], clean: Set[Pos], weakened: Set[Pos], flagged: Set[Pos], infections: Int, bursts: Int, counter: Int) : Int =
+  def simulate(pos: Pos, dir: Dir, infected: Set[Pos], weakened: Set[Pos], flagged: Set[Pos], infections: Int, bursts: Int, counter: Int) : Int =
   {
     if (counter == bursts) infections else {
       if (infected.contains(pos))
-        simulate(pos + dir.turnRight().step(), dir.turnRight(), infected - pos, clean, weakened, flagged + pos, infections, bursts, counter + 1)
+        simulate(pos + dir.turnRight().step(), dir.turnRight(), infected - pos, weakened, flagged + pos, infections, bursts, counter + 1)
       else if (weakened.contains(pos))
-        simulate(pos + dir.step(), dir, infected + pos, clean, weakened - pos, flagged, infections + 1, bursts, counter + 1)
+        simulate(pos + dir.step(), dir, infected + pos, weakened - pos, flagged, infections + 1, bursts, counter + 1)
       else if (flagged.contains(pos))
-        simulate(pos + dir.turnLeft().turnLeft().step(), dir.turnLeft().turnLeft(), infected, clean + pos, weakened, flagged - pos, infections, bursts, counter + 1)
+        simulate(pos + dir.turnLeft().turnLeft().step(), dir.turnLeft().turnLeft(), infected, weakened, flagged - pos, infections, bursts, counter + 1)
       else {
         // position is clean
-        simulate(pos + dir.turnLeft().step(), dir.turnLeft(), infected, clean - pos, weakened + pos, flagged, infections, bursts, counter + 1)
+        simulate(pos + dir.turnLeft().step(), dir.turnLeft(), infected, weakened + pos, flagged, infections, bursts, counter + 1)
       }
     }
   }
-  
+
   def main(args: Array[String]) =
   {
     //-- Tests -----------------
