@@ -18,10 +18,9 @@ int getDistanceTo(int square)
 
   if (i > 1) {
     int start_index = (i - 2) * (i - 2) + 1;
-    int border_length = 4 * (i - 1);
     int border_index = square - start_index;
     int distance_sideways = abs(border_index % (i - 1) - (i/2 - 1));
-    distance = /*distance_inwards*/ i / 2 + distance_sideways;    
+    distance = /*distance_inwards*/ i / 2 + distance_sideways;
   }
 
   return distance;
